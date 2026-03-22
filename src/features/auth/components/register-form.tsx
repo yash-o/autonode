@@ -1,6 +1,6 @@
 "use client";
 
-import { zodResolver } from  "@hookform/resolvers/zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
@@ -31,14 +31,14 @@ const registerSchema = z.object({
     password: z.string().min(1, "Password is required"),
     confirmPassword: z.string(),
 })
-.refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
-});
+    .refine((data) => data.password === data.confirmPassword, {
+        message: "Passwords do not match",
+        path: ["confirmPassword"],
+    });
 
 type RegisterFormValues = z.infer<typeof registerSchema>;
 
-export function RegisterForm(){
+export function RegisterForm() {
     const router = useRouter();
     const form = useForm<RegisterFormValues>({
         resolver: zodResolver(registerSchema),
@@ -55,7 +55,7 @@ export function RegisterForm(){
                 name: values.email,
                 email: values.email,
                 password: values.password,
-                callbackURL: "/" 
+                callbackURL: "/"
             },
             {
                 onSuccess: () => {
@@ -70,12 +70,12 @@ export function RegisterForm(){
 
     const isPending = form.formState.isSubmitting;
 
-    return(
+    return (
         <div className="flex flex-col gap-6">
             <Card>
                 <CardHeader className="text-center">
                     <CardTitle>
-                         Get Started
+                        Get Started
                     </CardTitle>
                     <CardDescription>
                         Create your account to get started
@@ -92,6 +92,12 @@ export function RegisterForm(){
                                         type="button"
                                         disabled={isPending}
                                     >
+                                        <Image
+                                            alt="Github"
+                                            src="/logos/github.svg"
+                                            width={20}
+                                            height={20}
+                                        />
                                         Continue with Github
                                     </Button>
                                     <Button
@@ -100,6 +106,12 @@ export function RegisterForm(){
                                         type="button"
                                         disabled={isPending}
                                     >
+                                        <Image
+                                            alt="Google"
+                                            src="/logos/google.svg"
+                                            width={20}
+                                            height={20}
+                                        />
                                         Continue with Google
                                     </Button>
                                 </div>
@@ -112,12 +124,12 @@ export function RegisterForm(){
                                                 <FormLabel>Email</FormLabel>
                                                 <FormControl>
                                                     <Input
-                                                      type="email"
-                                                      placeholder="m@example.com"
-                                                      {...field}
+                                                        type="email"
+                                                        placeholder="m@example.com"
+                                                        {...field}
                                                     />
                                                 </FormControl>
-                                                <FormMessage /> 
+                                                <FormMessage />
                                             </FormItem>
                                         )}
                                     />
@@ -129,12 +141,12 @@ export function RegisterForm(){
                                                 <FormLabel>Password</FormLabel>
                                                 <FormControl>
                                                     <Input
-                                                      type="Password"
-                                                      placeholder="*********"
-                                                      {...field}
+                                                        type="Password"
+                                                        placeholder="*********"
+                                                        {...field}
                                                     />
                                                 </FormControl>
-                                                <FormMessage /> 
+                                                <FormMessage />
                                             </FormItem>
                                         )}
                                     />
@@ -146,12 +158,12 @@ export function RegisterForm(){
                                                 <FormLabel>Confirm Password</FormLabel>
                                                 <FormControl>
                                                     <Input
-                                                      type="Password"
-                                                      placeholder="*********"
-                                                      {...field}
+                                                        type="Password"
+                                                        placeholder="*********"
+                                                        {...field}
                                                     />
                                                 </FormControl>
-                                                <FormMessage /> 
+                                                <FormMessage />
                                             </FormItem>
                                         )}
                                     />

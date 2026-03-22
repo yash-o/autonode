@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
+import { Images } from "lucide-react";
 
 const loginSchema = z.object({
     email: z.email("Please enter a valid email address"),
@@ -82,6 +83,12 @@ export function LoginForm(){
                                         type="button"
                                         disabled={isPending}
                                     >
+                                        <Image
+                                            alt="Github"
+                                            src="/logos/github.svg"
+                                            width={20}
+                                            height={20}
+                                        />
                                         Continue with Github
                                     </Button>
                                     <Button
@@ -90,6 +97,12 @@ export function LoginForm(){
                                         type="button"
                                         disabled={isPending}
                                     >
+                                        <Image
+                                            alt="Google"
+                                            src="/logos/google.svg"
+                                            width={20}
+                                            height={20}
+                                        />
                                         Continue with Google
                                     </Button>
                                 </div>

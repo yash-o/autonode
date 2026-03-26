@@ -8,13 +8,18 @@ import { createAnthropic } from "@ai-sdk/anthropic";
 const google = createGoogleGenerativeAI();
 const openai = createOpenAI();
 const anthropic = createAnthropic();
+import * as Sentry from "@sentry/nextjs";
+
 
 export const execute = inngest.createFunction(
   { id: "execute-ai", triggers: [{ event: "execute/ai" }] },
   async ({ event, step }) => {
     await step.sleep("pretend", "5s");
 
-    
+    Sentry.logger.info('User triggered test log', { log_source: 'sentry_test' })
+    console.warn("Something is missing.");
+    console.error("This is an error i want to track");
+
     const { steps: geminiSteps } = await step.ai.wrap(
       "gemini-generate-text",
       generateText,
@@ -22,6 +27,12 @@ export const execute = inngest.createFunction(
         model: google("gemini-2.5-flash"),
         system: "You are a helpful assistant.",
         prompt: "what is 2 + 2?",
+        experimental_telemetry: {
+          isEnabled: true,
+          functionId: "joke_agent",
+          recordInputs: true,
+          recordOutputs: true,
+        },
       }
     )
 
@@ -32,6 +43,12 @@ export const execute = inngest.createFunction(
     //     model: openai("gpt-4"),
     //     system: "You are a helpful assistant.",
     //     prompt: "what is 2 + 2?",
+    //     experimental_telemetry: {
+    //       isEnabled: true,
+    //       functionId: "joke_agent",
+    //       recordInputs: true,
+    //       recordOutputs: true,
+    //     },
     //   }
     // )
 
@@ -42,6 +59,12 @@ export const execute = inngest.createFunction(
     //     model: anthropic("claude-sonnet-4-5"),
     //     system: "You are a helpful assistant.",
     //     prompt: "what is 2 + 2?",
+    //     experimental_telemetry: {
+    //       isEnabled: true,
+    //       functionId: "joke_agent",
+    //       recordInputs: true,
+    //       recordOutputs: true,
+    //     },
     //   }
     // )
     return {
